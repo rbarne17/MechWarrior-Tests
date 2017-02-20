@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4524.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -17,6 +18,8 @@ public class Robot extends IterativeRobot {
 	RobotDrive myRobot = new RobotDrive(0, 1);
 	Joystick stick = new Joystick(0);
 	Timer timer = new Timer();
+	Encoder rightEncoder = new Encoder(0,1);
+	Encoder leftEncoder = new Encoder(3,2);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -33,6 +36,9 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		timer.reset();
 		timer.start();
+		leftEncoder.reset();
+		rightEncoder.reset();
+		
 	}
 
 	/**
@@ -41,10 +47,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		// Drive for 2 seconds
-		if (timer.get() < 2.0) {
-			myRobot.drive(-0.5, 0.0); // drive forwards half speed
+		if (timer.get() < 1.0) {
+			myRobot.drive(.5, 0.0); // drive forwards half speed
 		} else {
 			myRobot.drive(0.0, 0.0); // stop robot
+			System.out.println("Left Encoder: " + leftEncoder.get() + ":Right Encoder:" + rightEncoder.get());
 		}
 	}
 
@@ -54,6 +61,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
+		leftEncoder.reset();
+		rightEncoder.reset();
+
 	}
 
 	/**
@@ -61,7 +71,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
 		myRobot.arcadeDrive(stick);
+		System.out.println("Left Encoder: " + leftEncoder.get() + ":Right Encoder:" + rightEncoder.get());
 	}
 
 	/**
