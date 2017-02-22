@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		// Drive for 2 seconds
 		if (timer.get() < 1.0) {
-			myRobot.drive(.5, 0.0); // drive forwards half speed
+			myRobot.drive(-0.25, 0.0); // drive forwards half speed
 		} else {
 			myRobot.drive(0.0, 0.0); // stop robot
 			System.out.println("Left Encoder: " + leftEncoder.get() + ":Right Encoder:" + rightEncoder.get());
